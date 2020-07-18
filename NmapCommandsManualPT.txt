@@ -1,0 +1,148 @@
+1) Poodle
+   nmap -sV --version-light --script ssl-poodle -p 443 <target>
+
+2) RC4  
+   nmap -sV --script ssl-enum-ciphers -p 443 <target>
+
+3) Options Methods  
+   nmap --script http-methods <target>
+
+4) http-method-tamper 
+   nmap -sV --script http-method-tamper <target>
+
+5) File http-webdav-scan 
+   nmap --script http-webdav-scan -p80,8080 <target>
+
+6) File http-trace 
+   nmap --script http-trace -d <target>
+
+7) File http-aspnet-debug 
+   nmap --script http-aspnet-debug <target>
+   nmap --script http-aspnet-debug --script-args http-aspnet-debug.path=/path <target>
+
+8) File http-put 
+   nmap -p 80 <ip> --script http-put --script-args http-put.url='/uploads/rootme.php',http-put.file='/tmp/rootme.php'
+
+9) Sweet32
+   nmap --script ssl-enum-ciphers -p 443, nmap --script ssl-enum-ciphers -p 443 <target>
+
+10) RSA keys less than 2048 bits 
+    nmap -sV --script ssl-enum-ciphers -p 443 <target>
+
+11) SSL/TLS Diffie-Hellman Modulus <= 1024 Bits (Logjam) 
+    nmap --script ssl-dh-params <target>
+
+12) SMB Signing Disabled 
+    nmap --script smb-security-mode.nse -p445 <target>
+
+13) SSL Version 2 and 3 Protocol Detection 
+    nmap -sV --script ssl-enum-ciphers -p 443 <target>
+
+14) SSLv3 Padding Oracle On Downgraded Legacy Encryption Vulnerability (POODLE) 
+    nmap -sV --version-light --script ssl-poodle -p 443 <target>
+
+15) Microsoft Windows Remote Desktop Protocol Server Man-in-the-Middle Weakness 
+    nmap -p 3389 --script rdp-enum-encryption <target>
+
+16) SSL Certificate Signed Using Weak Hashing Algorithm 
+    nmap -sV -sC <target>
+ 
+17) DNS Server Cache Snooping Remote Information Disclosure
+
+18) SSH Server CBC Mode Ciphers Enabled 
+    nmap --script ssh2-enum-algos <target>
+
+19) telnet
+    nmap -p 23 --script telnet-brute --script-args userdb=myusers.lst,passdb=mypwds.lst,telnet-brute.timeout=8s <target>
+_________________________________________________________________________________________________________________________________________________________
+Web Application Testing Manually on Nmap
+
+1) Testing for Weak SSL/TLS Ciphers, Insufficient Transport Layer Protection 
+   nmap -sV --reason -PN -n --top-ports 100 <target>
+
+2) Checking for Certificate information, Weak Ciphers and SSLv2 via nmap
+   nmap --script ssl-cert,ssl-enum-ciphers -p 443,465,993,995 <target>
+
+3) Application is vulnerable to Sweet32 attack
+   nmap --script ssl-enum-ciphers <target>
+
+4) Application supports weak ciphers/Encoding
+   nmap --script ssl-enum-ciphers <target>
+
+5) Dangerous methods are enabled on the web server.Secure flag is not set in cookie 
+   nmap -A -sV -T5 -p 443 simplychat.hdfclife.com
+   Result in cmd: Potentially risky methods:TRACE
+
+6) POODLE Attack Vulnerability
+   nmap -sV --version-light --script ssl-poodle -p 443 muat.hdfclife.com
+
+7) Options method enabled
+   Nmap www.xyz.com --script http-methods -p 443
+
+8) Open Ports Found
+   nmap www.xyz.com -sV -T5 -A -p-
+
+
+_______________________________________________________________________________________________________________________________________________________
+
+
+Heartbleed
+nmap -p 443 --script ssl-heartbleed <target>
+nmap –script=ssl-heartbleed <target>
+
+Poodle
+nmap -sV --version-light --script ssl-poodle -p 443 <host>
+nmap -script ssl-poodle <target>
+
+IRC Backdoor
+nmap -sV –script=irc-unrealircd-backdoor  -p 6667 192.168.1.6
+
+MS08-67 Vulnerability (remote code execution)
+nmap  –script  smb-vuln-ms08-067  -p 445  192.168.0.114
+
+DOS
+nmap -sV –script=rdp-ms12-020  -p 3389 192.168.0.114
+
+Vsftpd Backdoor
+nmap –script ftp-vsftpd-backdoor  -p 21  192.168.1.6
+
+Diffie-Hellman parameter detection
+nmap --script ssl-dh-params <target>
+
+ssl-enum-ciphers
+nmap -sV --script ssl-enum-ciphers -p 443 <host>
+
+File http-methods
+nmap --script http-methods <target>
+nmap --script http-methods --script-args http-methods.url-path='/website' <target>
+
+vulnerabilities
+nmap -Pn --script vuln <target.com or ip> <enter>
+
+Use NMAP to Brute Force Passwords
+nmap --script brute -Pn <target.com or ip> <enter>
+
+Use NMAP to Actively Exploit Detected Vulnerabilities
+nmap --script exploit -Pn <target.com or ip> <enter>
+
+Use NMAP to Test if Target Is Vulnerable to Dos
+nmap --script dos -Pn <target.com or ip> <enter>
+
+Use NMAP to Perform DOS Attack
+nmap --max-parallelism 750 -Pn --script http-slowloris --script-args http-slowloris.runforever=true
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+http://www.hackingarticles.in/5-ways-to-penetration-testing-of-http-protocol-verb-tempering/
+http://www.smeegesec.com/2014/10/detecting-and-exploiting-http-put-method.html
